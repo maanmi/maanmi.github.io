@@ -11,12 +11,13 @@
 <script type="text/javascript">
 
 var svg=d3.select('body').append('svg')
+						.data(rects).enter().
 						.attr('stroke', 'grey')
 						.attr('stroke-width', 2);
 
 var rects=['purple', 'blue', 'green', 'yellow', 'red'];
 
-svg.data(rects).enter().append('rect')
+svg.append('rect')
 .attr('x', function(d, i){return i*40})
 .attr('y', function(d, i){return 80-(i*20)})
 .attr('width', 80)
