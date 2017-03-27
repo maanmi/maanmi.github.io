@@ -12,6 +12,34 @@
             background-size: cover;
             background-repeat: no-repeat;
         }
+
+             /* ******************************  Map  ******************************* */
+
+        #plot-div {
+            max-width: 80%;
+            margin: auto;
+        }
+
+        .map-plot{
+            margin-top:-1.8%
+        }
+
+        .centroid {
+            stroke: black;
+            stroke-width: 2;
+        }
+
+        .district-names {
+            fill: grey;
+            text-anchor: middle;
+        }
+
+        path {
+            fill: #d1d1e0;
+            stroke: grey;
+
+        }
+
        /* ******************************  Text  ******************************* */
 
          h3 {
@@ -79,31 +107,5 @@
         }
 
 
-         /* ******************************  Map  ******************************* */
-
-        #plot-div {
-            max-width: 80%;
-            margin: auto;
-        }
-
-        .map-plot{
-            margin-top:-1.8%
-        }
-
-        .centroid {
-            stroke: black;
-            stroke-width: 2;
-        }
-
-        .district-names {
-            fill: grey;
-            text-anchor: middle;
-        }
-
-        path {
-            fill: #d1d1e0;
-            stroke: grey;
-
-        }
 
  
