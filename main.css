@@ -3,7 +3,7 @@
             content: "";
             background: url('img/pexels-photo-94340.jpg'); /* Photo downloaded from https://www.pexels.com */
             opacity: 0.4;
-            top: 10%;
+            top: 0;
             left: 0;
             bottom: 0;
             right: 0;
@@ -63,6 +63,7 @@
             clear:both;
             font-style: bold;
             font-size: 15px;
+            margin:0;
         }
 
 
