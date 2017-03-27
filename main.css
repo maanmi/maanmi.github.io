@@ -1,28 +1,30 @@
-h2,
-        h3 {
+
+        body::after {
+            content: "";
+            background: url('img/pexels-photo-94340.jpg'); /* Photo downloaded from https://www.pexels.com */
+            opacity: 0.4;
+            top: 10%;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            position: absolute;
+            z-index: -1;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+       /* ******************************  Text  ******************************* */
+
+         h3 {
             color: white;
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            text-shadow: 1px 1px #8c8c8c;
+ 
         }
 
         h3 span {
             font-style: italic;
             font-weight: normal;
             font-family: Times
-        }
-
-        body::after {
-            content: "";
-            background: url('img/pexels-photo-94340.jpg');
-            /* Photo downloaded from https://www.pexels.com/photo-license/*/
-            opacity: 0.4;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            position: absolute;
-            z-index: -1;
-            background-size: 100% 100%;
-            background-repeat: no-repeat;
         }
 
 
@@ -32,11 +34,15 @@ h2,
             line-height: 1.25;
         }
 
-        #plot-div {
-            max-width: 80%;
-            margin: auto;
-            padding: 10px;
+        #footer {
+            margin-top: -9%;
+         
+            font-style: bold;
+            font-size: 15px;
         }
+
+
+        /* ************************  Button side menu  ************************ */
 
         #buttons-div {
             width: 16%;
@@ -47,11 +53,6 @@ h2,
             border-right: solid 5px #98266e;
             background-color: rgba(255, 255, 255, 0.3);
             padding-left: 10px;
-        }
-
-        ​ h3 {
-
-            text-shadow: 1px 1px #8c8c8c;
         }
 
         #buttons-div p {
@@ -77,13 +78,24 @@ h2,
             font-size: 16px;
         }
 
+
+         /* ******************************  Map  ******************************* */
+
+        #plot-div {
+            max-width: 80%;
+            margin: auto;
+        }
+
+        .map-plot{
+            margin-top:-1.8%
+        }
+
         .centroid {
             stroke: black;
             stroke-width: 2;
         }
 
         .district-names {
-
             fill: grey;
             text-anchor: middle;
         }
@@ -91,11 +103,7 @@ h2,
         path {
             fill: #d1d1e0;
             stroke: grey;
+
         }
 
-        #footer {
-            margin-top: -8%;
-            color: white;
-            font-style: bold;
-            font-size: 15px;
-        }
+ 

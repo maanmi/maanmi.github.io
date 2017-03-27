@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="utf-8">
-        <title>Lecture 7</title>
+        <title>Assignment 2</title>
         <script type="text/javascript" src="d3/d3.js"></script>
         <link rel='stylesheet' type='text/css' href='main.css'>
         <script type="text/javascript">
@@ -12,9 +12,11 @@
                 } 
         </script>
     </head>
-    <h2>Assignment 2B: Visualizing geodata</h2>
+    
     <body>
+        <h2>Assignment 2B: Visualizing geodata</h2>
         <div id='header-div'>
+           
             <h3><span>K-</span>means clustering : San Fransisco prostitution incidents 2013-2017</h3>
         </div>
         <div id='plot-div'>
@@ -27,12 +29,10 @@
         <script type="text/javascript">
 
         
-
-
         // Make plot div scalable to different screen sizes
 
-        d3.select("#plot-div").style('height', window.innerHeight + 'px');
-        d3.select("#buttons-div").style('height', window.innerHeight * 0.85 + 'px');
+        d3.select("#plot-div").style('height', window.innerHeight+ 'px');
+        d3.select("#buttons-div").style('height', window.innerHeight*0.83 + 'px');
 
         // adjust map dimensions to container div 
         var w = d3.select('#plot-div').node().getBoundingClientRect().width * 0.80,
@@ -67,7 +67,8 @@
                 // Plot map
                 var svg = d3.select("#plot-div").append("svg")
                     .attr("width", w)
-                    .attr("height", h);
+                    .attr("height", h)
+                    .attr('class', 'map-plot');
 
                 svg.selectAll("path")
                     .data(sf.features)
@@ -94,6 +95,7 @@
         //*******************************************************************************************************
 
         // **************************************  Make button side menu  ***************************************
+
                 
                 var allButtons = d3.select('#buttons-div')
                     .append('svg')
@@ -171,6 +173,7 @@
 
         //*******************************************************************************************************
 
+        // ***********************************  Plot prostitution incidents  ************************************
 
                 var color = d3.scale.category10().range();
 
@@ -180,6 +183,7 @@
                 // Initialize map
                 var defaultButton = d3.select(buttonGroups).node()[0][K - 2];
                 updateButtonColors(d3.select(defaultButton), d3.select(defaultButton.parentNode));
+
                 updateMap(K);
 
                 // Change button text colors on click:
@@ -216,7 +220,6 @@
                     circles.enter()
                         .append("circle");
 
-
                     //Update existing dots               
                     circles.transition().duration(preview ? 400 : 500) //move faster in preview mode
                         .style("fill", function(d) {
@@ -243,6 +246,7 @@
                     });
 
                 }
+        //*******************************************************************************************************
 
             });
 
