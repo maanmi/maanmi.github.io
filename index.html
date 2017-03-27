@@ -46,7 +46,7 @@
             if (error) return console.error(error);
 
 
-            d3.csv('sf_prost_data_reduced.csv', function(error, prost) { // We need the back-end generated data to get the center of the map & the prostitution data points
+            d3.csv('data/sf_prost_data_reduced.csv', function(error, prost) { // We need the back-end generated data to get the center of the map & the prostitution data points
                 if (error) return console.error(error);
 
         // *********************************************  Plot map  *********************************************
@@ -176,7 +176,7 @@
 
 
                 var K = 3; //initialize K
-                
+
                 // Initialize map
                 var defaultButton = d3.select(buttonGroups).node()[0][K - 2];
                 updateButtonColors(d3.select(defaultButton), d3.select(defaultButton.parentNode));
