@@ -15,17 +15,17 @@
     
     <body>
         <h2>Assignment 2B: Visualizing geodata</h2>
-        <div id='header-div'>
+        <div id='plot-div'>
+             <div id='header-div'>
            
             <h3><span>K-</span>means clustering : San Fransisco prostitution incidents 2013-2017</h3>
         </div>
-        <div id='plot-div'>
             <div id='buttons-div'>
                 <h3></h3>
                 <p> Click to change <br> Hover to preview </p>
             </div>
         </div>
-        <div id='footer'>DTU Social data analysis and visualization (02806) 2017</div>
+        
         <script type="text/javascript">
 
         
@@ -175,7 +175,7 @@
 
         // ***********************************  Plot prostitution incidents  ************************************
 
-                var color = d3.scale.category10().range();
+                var color = d3.scale.category10().range(); // Dot colorscale
 
 
                 var K = 3; //initialize K
@@ -185,6 +185,8 @@
                 updateButtonColors(d3.select(defaultButton), d3.select(defaultButton.parentNode));
 
                 updateMap(K);
+
+                 d3.select('#plot-div').append('div').attr('id','footer').text('DTU Social data analysis and visualization (02806) 2017');
 
                 // Change button text colors on click:
                 function updateButtonColors(button, parent) {
