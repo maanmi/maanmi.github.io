@@ -1,8 +1,3 @@
-Link to webpage:
-
-http://maanmi.github.io
-
-
 Link to bl.ock:
 
 2B:
