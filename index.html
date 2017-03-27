@@ -25,14 +25,13 @@
                 <p> Click to change <br> Hover to preview </p>
             </div>
         </div>
+        <div id='footer'> DTU Social data analysis and visualization (02806) </div>
         
         <script type="text/javascript">
 
         
-        // Make plot div scalable to different screen sizes
-
-        d3.select("#plot-div").style('height', window.innerHeight+ 'px');
-        d3.select("#buttons-div").style('height', window.innerHeight*0.83 + 'px');
+        d3.select("#plot-div").style('height', 620+ 'px');
+        d3.select("#buttons-div").style('height', 500 + 'px');
 
         // adjust map dimensions to container div 
         var w = d3.select('#plot-div').node().getBoundingClientRect().width * 0.80,
@@ -67,8 +66,7 @@
                 // Plot map
                 var svg = d3.select("#plot-div").append("svg")
                     .attr("width", w)
-                    .attr("height", h)
-                    .attr('class', 'map-plot');
+                    .attr("height", h);
 
                 svg.selectAll("path")
                     .data(sf.features)
@@ -186,7 +184,7 @@
 
                 updateMap(K);
 
-                 d3.select('#plot-div').append('div').attr('id','footer').text('DTU Social data analysis and visualization (02806) 2017');
+            //     d3.select('#plot-div').append('div').attr('id','footer').text('DTU Social data analysis and visualization (02806) 2017');
 
                 // Change button text colors on click:
                 function updateButtonColors(button, parent) {

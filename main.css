@@ -20,9 +20,6 @@
             margin: auto;
         }
 
-        .map-plot{
-            margin-top:-1.8%
-        }
 
         .centroid {
             stroke: black;
@@ -63,8 +60,7 @@
         }
 
         #footer {
-         margin-top: -10%;
-        margin-left: -13%; 
+            clear:both;
             font-style: bold;
             font-size: 15px;
         }
