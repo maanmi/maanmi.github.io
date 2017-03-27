@@ -1,8 +1,9 @@
-Link to bl.ocks:
+Link to webpage:
 
-2A:
+http://maanmi.github.io
 
-http://bl.ocks.org/micked/raw/1bf402f3bb7d69c240f124ac10e8c9a1/
+
+Link to bl.ock:
 
 2B:
 
