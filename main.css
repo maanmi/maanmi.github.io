@@ -1,3 +1,101 @@
-body{
-	font:bold 24pt sans-serif
-}
+h2,
+        h3 {
+            color: white;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        h3 span {
+            font-style: italic;
+            font-weight: normal;
+            font-family: Times
+        }
+
+        body::after {
+            content: "";
+            background: url('img/pexels-photo-94340.jpg');
+            /* Photo downloaded from https://www.pexels.com/photo-license/*/
+            opacity: 0.4;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            position: absolute;
+            z-index: -1;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
+
+
+        #header-div {
+            text-align: center;
+            font-weight: bold;
+            line-height: 1.25;
+        }
+
+        #plot-div {
+            max-width: 80%;
+            margin: auto;
+            padding: 10px;
+        }
+
+        #buttons-div {
+            width: 16%;
+
+            float: left;
+            line-height: 1.5;
+            font-size: 16px;
+            border-right: solid 5px #98266e;
+            background-color: rgba(255, 255, 255, 0.3);
+            padding-left: 10px;
+        }
+
+        ​ h3 {
+
+            text-shadow: 1px 1px #8c8c8c;
+        }
+
+        #buttons-div p {
+            color: #f2f2f2;
+            font-style: italic;
+            font-size: 14px;
+            text-shadow: 1px 2px #8c8c8c;
+        }
+
+        #allButtons {
+            height: 100%;
+            margin-top: 20%;
+        }
+
+        .button {
+
+            cursor: pointer;
+        }
+
+        .button-text {
+            text-anchor: middle;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 16px;
+        }
+
+        .centroid {
+            stroke: black;
+            stroke-width: 2;
+        }
+
+        .district-names {
+
+            fill: grey;
+            text-anchor: middle;
+        }
+
+        path {
+            fill: #d1d1e0;
+            stroke: grey;
+        }
+
+        #footer {
+            margin-top: -8%;
+            color: white;
+            font-style: bold;
+            font-size: 15px;
+        }

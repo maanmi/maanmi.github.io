@@ -1,30 +1,255 @@
 <!DOCTYPE html>
-<html>
-<meta charset="utf-8">
-<title>D3 Page </title>
-<link rel='stylesheet' type='text/css' href='main.css'>
-<script type="text/javascript" src="d3/d3.js"></script>
-<body>
-<h1>Hello world</h1>
-<p>I'm hosted with GitHub Pages.</p>
+<html lang="en">
 
-<script type="text/javascript">
+    <head>
+        <meta charset="utf-8">
+        <title>Lecture 7</title>
+        <script type="text/javascript" src="d3/d3.js"></script>
+        <link rel='stylesheet' type='text/css' href='main.css'>
+        <script type="text/javascript">
+            String.prototype.capitalize = function() {
+                    return this.charAt(0).toUpperCase() + this.slice(1);
+                } 
+        </script>
+    </head>
 
-var svg=d3.select('body').append('svg')
-						.attr('stroke', 'grey')
-						.attr('stroke-width', 2);
+    <body>
+        <div id='header-div'>
+            <h3><span>K-</span>means clustering : San Fransisco prostitution incidents 2013-2017</h3>
+        </div>
+        <div id='plot-div'>
+            <div id='buttons-div'>
+                <h3></h3>
+                <p> Click to change <br> Hover to preview </p>
+            </div>
+        </div>
+        <div id='footer'>DTU Social data analysis and visualization (02806) 2017</div>
+        <script type="text/javascript">
 
-var rects=['purple', 'blue', 'green', 'yellow', 'red'];
-
-svg.selectAll('rect').data(rects).enter().append('rect')
-.attr('x', function(d, i){return i*40})
-.attr('y', function(d, i){return 80-(i*20)})
-.attr('width', 80)
-.attr('height', 80)
-.attr('fill', function(d){return d})
-.attr('opacity', function(d, i){return 1-(i*0.2)})
+        
 
 
-</script>
-</body>
+        // Make plot div scalable to different screen sizes
+
+        d3.select("#plot-div").style('height', window.innerHeight + 'px');
+        d3.select("#buttons-div").style('height', window.innerHeight * 0.85 + 'px');
+
+        // adjust map dimensions to container div 
+        var w = d3.select('#plot-div').node().getBoundingClientRect().width * 0.80,
+            h = d3.select('#plot-div').node().getBoundingClientRect().height;
+
+
+        var url = "https://raw.githubusercontent.com/suneman/socialdataanalysis2016/master/files/sfpddistricts.geojson"
+
+        d3.json(url, function(error, sf) {
+
+            if (error) return console.error(error);
+
+
+            d3.csv('sf_prost_data_reduced.csv', function(error, prost) { // We need the back-end generated data to get the center of the map & the prostitution data points
+                if (error) return console.error(error);
+
+        // *********************************************  Plot map  *********************************************
+
+                // Get bounding box data
+                var bboxCenter = prost.filter(function(d) {
+                    return d.bbox == 'True'
+                })[0];
+
+                //Define map projection
+                var projection = d3.geo.mercator().center([bboxCenter.lon, bboxCenter.lat])
+                    .translate([w / 2, h / 2]).scale([200000]);
+
+                //Define path generator
+                var path = d3.geo.path()
+                    .projection(projection);
+
+                // Plot map
+                var svg = d3.select("#plot-div").append("svg")
+                    .attr("width", w)
+                    .attr("height", h);
+
+                svg.selectAll("path")
+                    .data(sf.features)
+                    .enter()
+                    .append("path")
+                    .attr("d", path)
+
+                svg.append("g")
+                    .attr("class", "district-names")
+                    .selectAll("text")
+                    .data(sf.features)
+                    .enter()
+                    .append("svg:text")
+                    .text(function(d) {
+                        return d.properties.DISTRICT.toLowerCase().capitalize();
+                    })
+                    .attr("x", function(d) {
+                        return path.centroid(d)[0];
+                    })
+                    .attr("y", function(d) {
+                        return path.centroid(d)[1];
+                    });
+
+        //*******************************************************************************************************
+
+        // **************************************  Make button side menu  ***************************************
+                
+                var allButtons = d3.select('#buttons-div')
+                    .append('svg')
+                    .attr("id", "allButtons");
+
+
+                var textPressedColor = "#98266e",
+                    textHoverColor = "#b3b3b3",
+                    textDefaultColor = '#737373',
+                    defaultColor = "#f2f2f2";
+
+                //groups for each button (which will hold a rect and text)
+                var buttonGroups = allButtons.selectAll("g.button")
+                    .data([2, 3, 4, 5, 6])
+                    .enter()
+                    .append("g")
+                    .attr("class", "button");
+
+
+                //button width and height
+                var bWidth = 40; //button width
+                var bHeight = 25; //button height
+                var bSpace = 10; //space between buttons
+
+
+                //adding a rect to each button group
+                //sidenote: rx and ry give the rects rounded corners
+                buttonGroups.append("rect")
+                    .attr("width", bWidth)
+                    .attr("height", bHeight)
+                    .attr("y", function(d, i) {
+                        return (bWidth + bSpace) * i
+                    })
+
+                    .attr("rx", 10)
+                    .attr("ry", 10)
+                    .attr("fill", defaultColor);
+
+                //adding text to each button group, centered within the button rect
+                buttonGroups.append("text")
+                    .attr("class", "button-text")
+                    .attr("font-family", "FontAwesome")
+                    .attr("y", function(d, i) {
+                        return (bWidth + bSpace) * i + bWidth / 2;
+                    })
+                    .attr("x", bHeight / 2)
+                    .text(function(d) {
+                        return d;
+                    })
+
+                buttonGroups.on("click", function(d) {
+                        updateButtonColors(d3.select(this), d3.select(this.parentNode));
+                        updateMap(d3.select(this).text())
+                    })
+                    .on("mouseover", function() {
+                        if (d3.select(this).select("text").attr("fill") != textPressedColor) {
+                            d3.select(this)
+                                .select("text")
+                                .attr("fill", textHoverColor);
+                            K = d3.select('#buttons-div').select('h3').text().split(' ')[2];
+
+                            updateMap(d3.select(this).text(), preview = true);
+                        }
+                    })
+                    .on("mouseout", function() {
+                        if (d3.select(this).select("text").attr("fill") != textPressedColor) {
+                            d3.select(this)
+                                .select("text")
+                                .attr("fill", textDefaultColor);
+
+                            updateMap(K);
+                        }
+                    });
+                ;
+
+        //*******************************************************************************************************
+
+
+                var color = d3.scale.category10().range();
+
+
+                var K = 3; //initialize K
+                
+                // Initialize map
+                var defaultButton = d3.select(buttonGroups).node()[0][K - 2];
+                updateButtonColors(d3.select(defaultButton), d3.select(defaultButton.parentNode));
+                updateMap(K);
+
+                // Change button text colors on click:
+                function updateButtonColors(button, parent) {
+                    parent.selectAll("text")
+                        .attr("fill", textDefaultColor)
+                        .style('font-weight', 'normal');
+
+                    button.select("text")
+                        .attr("fill", textPressedColor)
+                        .style('font-weight', 'bold');
+
+                }
+
+
+                // Now for the actual data visualization part
+                function updateMap(k, preview) {
+
+                    preview = preview || false;
+
+                    //Bind relavant data with each update:
+                    var circles = svg.selectAll("circle")
+                        .data(prost.filter(function(d) {
+                            return d.center == k || d.center == '' //only plot relevant centroids for selected K
+                        })); 
+
+                    //Exit centroids - the number of the rest of dots is stable:
+                    circles.exit()
+                        .transition()
+                        .duration(500)
+                        .remove();
+
+                    // Enter new dots when necessary (when creating the graph and when introducing centroids:)
+                    circles.enter()
+                        .append("circle");
+
+
+                    //Update existing dots               
+                    circles.transition().duration(preview ? 400 : 500) //move faster in preview mode
+                        .style("fill", function(d) {
+                            var cluster = d.cluster.slice(1, -1).split(",").map(Number)[k - 2]; //extract relevant data points for selected K
+                            return color[cluster]
+                        })
+                        .attr("cx", function(d) {
+                            return projection([d.lat, d.lon])[0]
+                        })
+                        .attr("cy", function(d) {
+                            return projection([d.lat, d.lon])[1]
+                        })
+                        .attr("r", function(d) {
+                            return d.center ? 8 : 3 //make centroids larger
+                        })
+                        .attr('class', function(d) {
+                            return d.center ? 'centroid' : null //assign class to centroids
+                        })
+                        .style("opacity", preview ? 0.40 : 0.65); //more transparent in preview mode
+
+                    // Update header
+                    d3.select('#buttons-div').select('h3').text(function() {
+                        return preview ? 'K IS ' + K : 'K IS ' + k //retain K in preview mode, only change when a button is clicked
+                    });
+
+                }
+
+            });
+
+        });
+
+
+        </script>
+    </body>
+
 </html>
