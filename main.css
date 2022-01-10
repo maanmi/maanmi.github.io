@@ -1,7 +1,7 @@
 
         body::after {
             content: "";
-            background: img/pexels-photo-94340.jpg; /* Photo downloaded from https://www.pexels.com */
+            background: url(img/pexels-photo-94340.jpg); /* Photo downloaded from https://www.pexels.com */
             opacity: 0.4;
             top: 50px;
             left: 0;
